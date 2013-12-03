@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="resources.html">
+
+  &project;
+
+  <properties>
+    <title>The Resources Component</title>
+  </properties>
+
+<body>
+
+<section name="Table of Contents">
+<toc />
+</section>
+
+<section name="Introduction">
+
+  <p>The <strong>Resources</strong> element represents all the resources
+  available to the web application. This includes classes, JAR files, HTML, JSPs
+  and any other files that contribute to the web application. Implementations
+  are provided to use directories, JAR files and WARs as the source of these
+  resources and the resources implementation may be extended to provide support
+  for files stored in other forms such as in a database or a versioned
+  repository.</p>
+
+  <p>Resources are cached by default. Caching may be controlled by configuring
+  the appropriate caching attributes on the containing <a href="context.html">
+  Context</a>.</p>
+
+  <p><strong>Note: Running a webapp with non-filesystem based
+  Resources implementations is only possible when the webapp does not
+  rely on direct filesystem access to its own resources, and uses the methods
+  in the ServletContext interface to access them.</strong></p>
+
+  <p>A Resources element MAY be nested inside a
+  <a href="context.html">Context</a> component.  If it is not included,
+  a default filesystem based Resources will be created automatically,
+  which is sufficient for most requirements.</p>
+
+</section>
+
+
+<section name="Attributes">
+
+  <subsection name="Common Attributes">
+
+    <p>All implementations of <strong>Resources</strong>
+    support the following attributes:</p>
+
+    <attributes>
+
+      <attribute name="className" required="false">
+        <p>Java class name of the implementation to use. This class must
+        implement the <code>org.apache.catalina.WebResourceRoot</code>
+        interface. If not specified, the standard value (defined below) will be
+        used.</p>
+      </attribute>
+
+    </attributes>
+
+  </subsection>
+
+
+  <subsection name="Standard Implementation">
+
+    <p>The standard implementation of <strong>Resources</strong> is
+    <strong>org.apache.catalina.webresources.StandardRoot</strong>, and
+    is configured by its parent Context element.</p>
+
+  </subsection>
+
+</section>
+
+
+<section name="Nested Components">
+
+  <p>A web application&apos;s main resources are defined by the
+  <strong>docBase</strong> defined for the <a href="context.html">Context</a>.
+  Additional resources may be made available to the web application by defining
+  one or more nested components.</p>
+
+  <h3>PreResources</h3>
+
+  <p>PreResources are searched before the main resources. They will be searched
+  in the order they are defined. To configure PreResources, nest a
+  &lt;PreResources&gt; element inside the &lt;Resources&gt; element with the
+  following attributes:</p>
+
+  <attributes>
+
+    <attribute name="base" required="true">
+      <p>Identifies where the resources to be used are located. This attribute
+      is required by the <code>org.apache.catalina.WebResourceSet</code>
+      implementations provided by Tomcat and should specify the absolute path to
+      the file, directory or JAR where the resources are located. Custom
+      implementations may not require it.</p>
+    </attribute>
+
+    <attribute name="className" required="true">
+      <p>Java class name of the implementation to use. This class must
+      implement the <code>org.apache.catalina.WebResourceSet</code> interface.
+      Tomcat provides three standard implementations:
+      <code>org.apache.catalina.webresources.DirResourceSet</code>,
+      <code>org.apache.catalina.webresources.FileResourceSet</code> and
+      <code>org.apache.catalina.webresources.JarResourceSet</code>. Custom
+      implementations may also be used.
+      </p>
+    </attribute>
+
+    <attribute name="internalPath" required="false">
+      <p>Identifies the path within the <strong>base</strong> where the
+      resources are to be found. This is typically only used with JAR files when
+      the resources are not located at the root of the JAR as is the case with
+      resource JARs. This attribute is required by the
+      <code>org.apache.catalina.WebResourceSet</code> implementations provided
+      by Tomcat and must start with '/'. Custom implementations may not require
+      it. If not specified, the default value '/' will be used.</p>
+    </attribute>
+
+    <attribute name="webAppMount" required="false">
+      <p>Identifies the path within the web application that these resources
+      will be made available. For the
+      <code>org.apache.catalina.WebResourceSet</code> implementations provided
+      by Tomcat, this attribute is required and must start with '/'. Custom
+      implementations may not require it. If not specified, the default value of
+      '/' will be used.</p>
+    </attribute>
+
+  </attributes>
+
+  <h3>JAR resources</h3>
+
+  <p>JarResources are searched after the main resources but before the
+  PostResources. They will be searched in the order they are defined. To
+  configure JarResources, nest a &lt;JarResources&gt; element inside the
+  &lt;Resources&gt; element. The configuration attributes are the same as for
+  <strong>PreResources</strong>.
+  </p>
+
+  <h3>Post-resources</h3>
+
+  <p>PostResources are searched after the resource JARs. They will be searched
+  in the order they are defined. To configure PostResources, nest a
+  &lt;PostResources&gt; element inside the &lt;Resources&gt; element. The
+  configuration attributes are the same as for <strong>PreResources</strong>.
+  </p>
+
+</section>
+
+
+<section name="Special Features">
+
+  <p>No special features are associated with a <strong>Resources</strong>
+  element.</p>
+
+</section>
+
+
+</body>
+
+
+</document>

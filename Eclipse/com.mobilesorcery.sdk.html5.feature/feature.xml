@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.mobilesorcery.sdk.html5.feature"
+      label="MoSync HTML5 Support"
+      version="1.0.0.qualifier"
+      provider-name="MOBILESORCERY">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <includes
+         id="org.eclipse.wst.jsdt.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.eclipse.wst.jsdt.web.core"/>
+      <import plugin="org.eclipse.wst.jsdt.web.ui"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="com.mobilesorcery.sdk.core"/>
+      <import plugin="org.eclipse.wst.jsdt.core"/>
+      <import plugin="org.eclipse.wst.jsdt.debug.core"/>
+      <import plugin="org.eclipse.wst.jsdt.debug.transport"/>
+      <import plugin="org.eclipse.wst.jsdt.debug.ui"/>
+      <import plugin="org.eclipse.wst.jsdt.doc"/>
+      <import plugin="org.eclipse.wst.jsdt.manipulation"/>
+      <import plugin="org.eclipse.wst.jsdt.ui"/>
+      <import plugin="com.mobilesorcery.sdk.core" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.mobilesorcery.sdk.ui" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.mobilesorcery.sdk.ui.wizards" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.mobilesorcery.sdk.html5" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="com.mobilesorcery.sdk.html5"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.mobilesorcery.sdk.html5.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

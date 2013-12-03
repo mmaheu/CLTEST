@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="docs/toc.xml"
+            primary="true">
+      </toc>
+   </extension>
+   <extension
+         point="org.eclipse.cdt.ui.HelpInfo">
+      <helpInfo
+            file="docs/apireference.xml"
+            format="1">
+      </helpInfo>
+   </extension>
+   <extension
+         point="org.eclipse.help.base.searchParticipant">
+      <searchParticipant
+            icon="icons/searchparticipant.png"
+            id="com.mobilesorcery.sdk.help.searchParticipant"
+            name="MoSync API Documentation and User Guide"
+            participant="com.mobilesorcery.sdk.help.MoSyncDocsSearchParticipant">
+      </searchParticipant>
+   </extension>
+
+</plugin>

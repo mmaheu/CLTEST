@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+* @file index.html
+* @author Mattias Bybro
+*
+* Just a simple template for remote fetching of resources
+-->
+<html>
+	<head>
+		<meta name="viewport" content="width=320, user-scalable=no">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Bootstrap %FILE_PATH%</title>
+		<script type="text/javascript">
+		    var btrs = function() {
+		        var href = 'http://%SERVER_HOST%:%SERVER_PORT%/fetch/%PROJECT_NAME%/%FILE_PATH%';
+		        var req = new XMLHttpRequest();
+		        req.open('POST', href, false);
+		        req.send(null);
+		        var result = req.responseText;
+		        document.open();
+		        if (req.status == 200) {
+		            document.write(result);
+		        } else {
+		            document.write("Could not find %FILE_PATH%");
+		        }
+		        document.close();
+		    };
+		    window.onload = btrs;
+		</script>
+	</head>
+	<body><h1>%PROJECT_NAME%: %FILE_PATH%</h1></body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.grails.plugins</groupId>
+  <artifactId>hibernate</artifactId>
+  <packaging>zip</packaging>
+  <version>3.6.10.3</version>
+  <name>Hibernate 3 for Grails</name>
+  <description>Provides integration between Grails and Hibernate 3 through GORM</description>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>SpringSource</name>
+    <url>http://www.springsource.org/</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>Graeme Rocher</name>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.grails.org/browse/GPHIB</url>
+  </issueManagement>
+  <scm>
+    <url>https://github.com/grails-plugins/grails-hibernate-plugin</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.2.2</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.grails</groupId>
+      <artifactId>grails-datastore-core</artifactId>
+      <version>2.0.3.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.grails</groupId>
+      <artifactId>grails-datastore-gorm</artifactId>
+      <version>2.0.3.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.grails</groupId>
+      <artifactId>grails-datastore-gorm-hibernate</artifactId>
+      <version>2.0.3.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.grails</groupId>
+      <artifactId>grails-datastore-simple</artifactId>
+      <version>2.0.3.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>

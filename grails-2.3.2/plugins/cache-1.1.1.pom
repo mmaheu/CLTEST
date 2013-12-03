@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.grails.plugins</groupId>
+  <artifactId>cache</artifactId>
+  <packaging>zip</packaging>
+  <version>1.1.1</version>
+  <name>Cache Plugin</name>
+  <description>Grails Cache Plugin</description>
+  <url>http://grails-plugins.github.com/grails-cache/</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>SpringSource</name>
+    <url>http://www.springsource.org/</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>Jeff Brown</name>
+      <email>jbrown@vmware.com</email>
+    </developer>
+    <developer>
+      <name>Burt Beckwith</name>
+      <email>beckwithb@vmware.com</email>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.grails.org/browse/GPCACHE</url>
+  </issueManagement>
+  <scm>
+    <url>https://github.com/grails-plugins/grails-cache</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.grails.plugins</groupId>
+      <artifactId>webxml</artifactId>
+      <version>1.4.1</version>
+      <type>zip</type>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xmlParserAPIs</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xerces</groupId>
+          <artifactId>xmlParserAPIs</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+</project>

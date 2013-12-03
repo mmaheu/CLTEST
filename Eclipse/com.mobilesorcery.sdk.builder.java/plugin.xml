@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         id="com.mobilesorcery.sdk.build.j2me.packager"
+         point="com.mobilesorcery.core.packagers">
+      <packager
+            implementation="com.mobilesorcery.sdk.builder.java.JavaPackager"
+            pattern="^profiles[/|\\]runtimes[/|\\]java[/|\\].*|^profiles[/|\\]runtimes[/|\\]JavaME[/|\\].*">
+      </packager>
+   </extension>
+   
+   
+      <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.mobilesorcery.sdk.builder.java.PropertyInitializer">
+      </initializer>
+   </extension>
+
+       <extension
+             point="com.mobilesorcery.core.propertyinitializers">
+          <initializer
+                class="com.mobilesorcery.sdk.builder.java.PropertyInitializer"
+                context="com.mobilesorcery.sdk.mosync.project.context"
+                id="com.mobilesorcery.sdk.builder.javame.initializer"
+                prefix="javame">
+          </initializer>
+       </extension>
+                 <extension
+             point="org.eclipse.ui.propertyPages">
+          <page
+                category="com.mobilesorcery.sdk.ui.properties.project"
+                class="com.mobilesorcery.sdk.builder.java.ui.properties.JavaMESigningPropertyPage"
+                id="com.mobilesorcery.sdk.ui.properties.java"
+                objectClass="org.eclipse.core.resources.IProject"
+                name="JavaME Signing">
+                                <enabledWhen>
+                                   <test
+                                         forcePluginActivation="true"
+                                         property="com.mobilesorcery.sdk.testers.hasMoreNature">
+                                   </test>
+                                </enabledWhen>                
+          </page>          
+       </extension>
+                 <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="com.mobilesorcery.sdk.preferences.main"
+            class="com.mobilesorcery.sdk.builder.java.ui.preferences.JavaMESigningPreferencePage"
+            id="com.mobilesorcery.sdk.builder.java.preferences"
+            name="JavaME Signing">
+      </page>
+   </extension>
+                 <extension
+                       point="com.mobilesorcery.sdk.capabilities.matchers">
+                    <matcher
+                          class="com.mobilesorcery.sdk.builder.java.capabilities.JavaMEOpCertCapabilitiesMatcher">
+                    </matcher>
+                 </extension>
+                 <extension
+                       point="com.mobilesorcery.sdk.core.filter.factories">
+                     <filter
+                           id="com.mobilesorcery.sdk.builder.java.capabilities.elementfactory"
+                           class="com.mobilesorcery.sdk.builder.java.capabilities.JavaMEOpCertFilterFactory"> 
+                     </filter>
+                 </extension>
+</plugin>

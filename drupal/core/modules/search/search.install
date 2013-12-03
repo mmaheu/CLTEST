@@ -1,0 +1,216 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Search module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function search_schema() {
+  $schema['search_dataset'] = array(
+    'description' => 'Stores items that will be searched.',
+    'fields' => array(
+      'sid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Search item ID, e.g. node ID for nodes.',
+      ),
+      'langcode' => array(
+        'type' => 'varchar',
+        'length' => '12',
+        'not null' => TRUE,
+        'description' => 'The {languages}.langcode of the item variant.',
+        'default' => '',
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 16,
+        'not null' => TRUE,
+        'description' => 'Type of item, e.g. node.',
+      ),
+      'data' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+        'description' => 'List of space-separated words from the item.',
+      ),
+      'reindex' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Set to force node reindexing.',
+      ),
+    ),
+    'primary key' => array('sid', 'langcode', 'type'),
+  );
+
+  $schema['search_index'] = array(
+    'description' => 'Stores the search index, associating words, items and scores.',
+    'fields' => array(
+      'word' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The {search_total}.word that is associated with the search item.',
+      ),
+      'sid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {search_dataset}.sid of the searchable item to which the word belongs.',
+      ),
+      'langcode' => array(
+        'type' => 'varchar',
+        'length' => '12',
+        'not null' => TRUE,
+        'description' => 'The {languages}.langcode of the item variant.',
+        'default' => '',
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 16,
+        'not null' => TRUE,
+        'description' => 'The {search_dataset}.type of the searchable item to which the word belongs.',
+      ),
+      'score' => array(
+        'type' => 'float',
+        'not null' => FALSE,
+        'description' => 'The numeric score of the word, higher being more important.',
+      ),
+    ),
+    'indexes' => array(
+      'sid_type' => array('sid', 'langcode', 'type'),
+    ),
+    'foreign keys' => array(
+      'search_dataset' => array(
+        'table' => 'search_dataset',
+        'columns' => array(
+          'sid' => 'sid',
+          'langcode' => 'langcode',
+          'type' => 'type',
+        ),
+      ),
+    ),
+    'primary key' => array('word', 'sid', 'langcode', 'type'),
+  );
+
+  $schema['search_total'] = array(
+    'description' => 'Stores search totals for words.',
+    'fields' => array(
+      'word' => array(
+        'description' => 'Primary Key: Unique word in the search index.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'count' => array(
+        'description' => "The count of the word in the index using Zipf's law to equalize the probability distribution.",
+        'type' => 'float',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('word'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Update search module to use the configuration system.
+ *
+ * @ingroup config_upgrade
+ */
+function search_update_8000() {
+  // Run this first so the config is sure to be empty.
+  _search_update_8000_modules_mapto_plugins(array('user' => 'user_search', 'node' => 'node_search'));
+  $active_plugins = \Drupal::config('search.settings')->get('active_plugins');
+  update_variables_to_config('search.settings', array(
+   'minimum_word_size' => 'index.minimum_word_size',
+   'overlap_cjk' => 'index.overlap_cjk',
+   'search_cron_limit' => 'index.cron_limit',
+   'search_tag_weights' => 'index.tag_weights',
+   'search_and_or_limit' => 'and_or_limit',
+  ));
+  // update_variables_to_config() merges in all the default values from the YAML
+  // file, so we need re-save the list of active plugins we found.
+  \Drupal::config('search.settings')->set('active_plugins', $active_plugins)->save();
+}
+
+/**
+ * Update search module variables to plugin IDs.
+ *
+ * This function may also be called by contributed modules that implement a
+ * search plugin that is an update of a hook_search_info() implementation.
+ */
+function _search_update_8000_modules_mapto_plugins(array $map) {
+  $active_modules = update_variable_get('search_active_modules', array('node', 'user'));
+  $config = \Drupal::config('search.settings');
+  $active_plugins = $config->get('active_plugins');
+  foreach($active_modules as $idx => $module) {
+    if (isset($map[$module])) {
+      $plugin_id = $map[$module];
+      $active_plugins[$plugin_id] = $plugin_id;
+      unset($active_modules[$idx]);
+    }
+  }
+  $config->set('active_plugins', $active_plugins);
+  if ($active_modules) {
+    update_variable_set('search_active_modules', $active_modules);
+  }
+  else {
+    update_variable_del('search_active_modules');
+  }
+  $default_module = update_variable_get('search_default_module', 'node');
+  if (isset($map[$default_module])) {
+    $config->set('default_plugin', $map[$default_module]);
+    update_variable_del('search_default_module');
+  }
+  $config->save();
+}
+
+/**
+ * Adds the langcode field and indexes to {search_dataset} and {search_index}.
+ */
+function search_update_8001() {
+  // In order to upgrade the existing entries to have the correct langcode we
+  // need to recreate search data through running cron.
+  db_truncate('search_dataset');
+  db_truncate('search_index');
+  // This table is no longer used.
+  db_drop_table('search_node_links');
+
+  // Add the fields and indexes.
+  db_drop_primary_key('search_dataset');
+  db_add_field('search_dataset', 'langcode', array(
+    'type' => 'varchar',
+    'length' => '12',
+    'not null' => TRUE,
+    'description' => 'The {languages}.langcode of the item variant.',
+    'default' => '',
+  ));
+  db_add_primary_key('search_dataset', array('sid', 'langcode', 'type'));
+
+  db_drop_primary_key('search_index');
+  db_drop_index('search_index', 'sid_type');
+  db_add_field('search_index', 'langcode', array(
+    'type' => 'varchar',
+    'length' => '12',
+    'not null' => TRUE,
+    'description' => 'The {languages}.langcode of the item variant.',
+    'default' => '',
+  ),
+  array(
+    'indexes' => array(
+      'sid_type' => array('sid', 'langcode', 'type'),
+    ),
+  ));
+  db_add_primary_key('search_index', array('word', 'sid', 'langcode', 'type'));
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.mobilesorcery.core.packagers">
+      <packager
+      		id="com.mobilesorcery.sdk.build.winmobilecs.packager"
+            implementation="com.mobilesorcery.sdk.builder.winmobilecs.WinMobileCSPackager"
+            pattern="^profiles[/|\\]runtimes[/|\\]winphone.*"
+            platform="Windows Phone">
+      </packager>
+   </extension>
+            <extension
+            point="com.mobilesorcery.core.launcher">
+         <launcher
+               id="com.mobilesorcery.sdk.builder.winmobilecs.launcher"
+               implementation="com.mobilesorcery.sdk.builder.winmobilecs.launch.WindowsPhoneEmulatorLauncher">
+         </launcher>
+      </extension>
+             <extension
+             point="com.mobilesorcery.core.propertyinitializers">
+          <initializer
+                class="com.mobilesorcery.sdk.builder.winmobilecs.PropertyInitializer"
+                context="com.mobilesorcery.sdk.mosync.project.context"
+                id="com.mobilesorcery.sdk.builder.winmobilecs.initializer"
+                prefix="winmobilecs">
+          </initializer>
+       </extension>
+       <extension
+             point="org.eclipse.ui.propertyPages">
+          <page
+                class="com.mobilesorcery.sdk.builder.winmobilecs.ui.properties.WindowsPhoneGUIDPropertyPage"
+                id="com.mobilesorcery.sdk.ui.properties.windowscs.guid"
+                name="Windows Phone GUID"
+                objectClass="org.eclipse.core.resources.IProject"
+                category="com.mobilesorcery.sdk.ui.properties.project">
+                                <enabledWhen>
+                                   <test
+                                         forcePluginActivation="true"
+                                         property="com.mobilesorcery.sdk.testers.hasMoreNature">
+                                   </test>
+                                </enabledWhen>
+                                </page>
+             </extension>
+                              <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="com.mobilesorcery.sdk.preferences.main"
+            class="com.mobilesorcery.sdk.builder.winmobilecs.ui.preferences.MSBuildPreferencePage"
+            id="com.mobilesorcery.sdk.builder.winmobilecs.preferences.msbuild"
+            name="Visual Studio (WP7)">
+      </page>
+      </extension>
+            <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.mobilesorcery.sdk.builder.winmobilecs.PropertyInitializer">
+      </initializer>
+   </extension>
+</plugin>

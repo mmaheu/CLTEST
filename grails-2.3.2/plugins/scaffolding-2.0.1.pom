@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.grails.plugins</groupId>
+  <artifactId>scaffolding</artifactId>
+  <packaging>zip</packaging>
+  <version>2.0.1</version>
+  <name>Grails Scaffolding Plugin</name>
+  <description>Handles the configuration of dynamic scaffolding</description>
+  <url>http://grails.org/plugin/scaffolding</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>SpringSource</name>
+    <url>http://www.springsource.org/</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>Burt Beckwith</name>
+      <email>bbeckwith@gopivotal.com</email>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.grails.org/browse/GPSCAFFOLD</url>
+  </issueManagement>
+  <scm>
+    <url>https://github.com/grails-plugins/grails-scaffolding</url>
+  </scm>
+  <dependencies />
+</project>

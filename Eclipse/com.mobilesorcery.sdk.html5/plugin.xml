@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <!-- <extension
+      point="org.eclipse.wst.jsdt.core.JsGlobalScopeContainerInitializer">
+      <JsGlobalScopeContainerInitializer
+            class="com.mobilesorcery.sdk.html5.libraries.JoSyncLibInitializer"
+            id="com.mobilesorcery.sdk.html5.library.josync">
+      </JsGlobalScopeContainerInitializer>
+   </extension>
+-->
+<!-- This is to make sure Reload works properly -->
+<extension point="org.eclipse.ui.startup">
+  <startup
+        class="com.mobilesorcery.sdk.html5.EarlyStartup"/>
+</extension>
+     <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="com.mobilesorcery.sdk.html5.debug.ReloadLaunchConfigurationDelegate"
+            id="com.mobilesorcery.html5.reload.launchconfigurationtype"
+            modes="run,debug"
+            name="Reload App"/>
+            <launchConfigurationType
+            delegate="com.mobilesorcery.sdk.html5.debug.JSODDLaunchConfigurationDelegate"
+            id="com.mobilesorcery.html5.jsodd.launchconfigurationtype"
+            modes="run,debug"
+            name="JavaScript On-Device Debug"
+            sourceLocatorId="com.mobilesorcery.sdk.html5.debug.sourceLocator"
+            sourcePathComputerId="com.mobilesorcery.sdk.html5.debug.source.path.computer"/>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            class="com.mobilesorcery.sdk.html5.debug.JSODDSourceDirector"
+            id="com.mobilesorcery.sdk.html5.debug.sourceLocator"
+            name="JavaScript On-Device Debug Source Lookup">
+      </sourceLocator>
+   </extension>
+     <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="com.mobilesorcery.sdk.html5.debug.ReloadLaunchConfigurationTabGroup"
+            id="com.mobilesorcery.reload.launchconfigurationtabgroup"
+            type="com.mobilesorcery.html5.reload.launchconfigurationtype"/>
+            <launchConfigurationTabGroup
+            class="com.mobilesorcery.sdk.html5.debug.JSODDLaunchConfigurationTabGroup"
+            id="com.mobilesorcery.jsodd.launchconfigurationtabgroup"
+            type="com.mobilesorcery.html5.jsodd.launchconfigurationtype"/>
+     </extension>
+   <extension
+         point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="com.mobilesorcery.sdk.html5.debug.JSODDSourcePathComputer"
+            id="com.mobilesorcery.sdk.html5.debug.source.path.computer">
+      </sourcePathComputer>
+   </extension>
+      <extension
+         point="org.eclipse.wst.jsdt.debug.core.launchingConnectors">
+      <connector
+            class="com.mobilesorcery.sdk.html5.debug.jsdt.ReloadListeningConnector"
+            id="reload.listening.connector">
+      </connector>
+   </extension>
+      <extension
+         point="org.eclipse.wst.jsdt.debug.core.breakpointParticipants">
+      <participant
+            class="com.mobilesorcery.sdk.html5.debug.jsdt.ReloadBreakpointParticipant"
+            kind="*">
+      </participant>
+   </extension>
+      <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.wst.jsdt.debug.core.model.IJavaScriptThread"
+            class="com.mobilesorcery.sdk.html5.debug.jsdt.ReloadAdapterFactory">
+         <adapter
+               type="org.eclipse.debug.core.commands.IDropToFrameHandler">
+         </adapter>
+         <adapter
+               type="org.eclipse.debug.core.model.IDropToFrame">
+         </adapter>
+      </factory>
+            <factory
+            adaptableType="org.eclipse.wst.jsdt.debug.core.model.IJavaScriptStackFrame"
+            class="com.mobilesorcery.sdk.html5.debug.jsdt.ReloadAdapterFactory">
+         <adapter
+               type="org.eclipse.debug.core.commands.IDropToFrameHandler">
+         </adapter>
+         <adapter
+               type="org.eclipse.debug.core.model.IDropToFrame">
+         </adapter>
+      </factory>
+      <!-- Lots of internal API accesses here; jsdt does not support variable mods.-->
+     <!-- <factory
+            adaptableType="org.eclipse.wst.jsdt.debug.internal.core.model.JavaScriptVariable"
+            class="com.mobilesorcery.sdk.html5.debug.jsdt.ForceJavaScriptVariableEditor">
+         <adapter
+               type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementEditor">
+         </adapter>
+      </factory>-->
+   </extension>
+      <extension
+            point="com.mobilesorcery.sdk.build.steps">
+         <factory
+               id="com.mobilesorcery.sdk.html5.debugsupport"
+               implementation="com.mobilesorcery.sdk.html5.HTML5DebugSupportBuildStepExtension">
+         </factory>
+      </extension>
+      <extension
+            point="org.eclipse.ui.commands">
+         <command
+               defaultHandler="com.mobilesorcery.sdk.html5.ui.EvaluateHandler"
+               id="com.mobilesorcery.sdk.html5.evaluate"
+               name="Evaluate JavaScript">
+         </command>
+          <command
+               defaultHandler="com.mobilesorcery.sdk.html5.ui.DebuggingEnableHandler"
+               id="com.mobilesorcery.sdk.html5.enable.debugger"
+               name="Enable JavaScript Debugging">
+         </command>
+          <command
+               defaultHandler="com.mobilesorcery.sdk.html5.ui.DebuggingEnableHandler"
+               id="com.mobilesorcery.sdk.html5.disable.debugger"
+               name="Disable JavaScript Debugging">
+         </command>
+         <command
+               id="com.mobilesorcery.sdk.html5.reload"
+               name="Refresh On-Device JavaScript">
+         </command>
+         
+      </extension>
+
+      <extension
+            point="org.eclipse.ui.handlers">
+            <handler
+                  commandId="com.mobilesorcery.sdk.html5.reload"
+                  class="com.mobilesorcery.sdk.html5.ui.ReloadHandler">
+                            <activeWhen>
+                      <with 
+            variable="selection"> 
+         <iterate ifEmpty="false"
+               operator="and">
+            <and>
+            <or>
+            <adapt
+                  type="org.eclipse.debug.core.ILaunch">
+            </adapt>
+            <adapt
+                  type="org.eclipse.debug.core.model.IProcess">
+            </adapt>
+            <adapt
+                  type="org.eclipse.debug.core.model.IThread">
+            </adapt>
+            <adapt
+                  type="org.eclipse.debug.core.model.IStackFrame">
+            </adapt>
+            <adapt
+                  type="org.eclipse.debug.core.model.IDebugTarget">
+            </adapt>
+            </or>
+            <test property="com.mobilesorcery.sdk.html5.isJsoddLaunch"/>
+            </and>
+         </iterate> 
+      </with>                     
+               </activeWhen>
+                           </handler>
+      </extension>
+                     <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.mobilesorcery.sdk.html5.HTML5PreferenceInitializer">
+      </initializer>
+   </extension>
+   
+      <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+         <propertyTester
+            class="com.mobilesorcery.sdk.html5.ui.EvaluateTester"
+            id="com.mobilesorcery.sdk.html5.canEvaluate"
+            namespace="com.mobilesorcery.sdk.html5"
+            properties="canEvaluate"
+            type="java.lang.Object"/>
+         <propertyTester
+            class="com.mobilesorcery.sdk.html5.ui.DebuggingEnableTester"
+            id="com.mobilesorcery.sdk.html5.canEnableDebugging"
+            namespace="com.mobilesorcery.sdk.html5"
+            properties="canEnableDebugging,canDisableDebugging"
+            type="java.lang.Object"/>
+         <propertyTester
+            class="com.mobilesorcery.sdk.html5.ui.ActiveDebugSessionsTester"
+            id="com.mobilesorcery.sdk.html5.hasActiveSessions"
+            namespace="com.mobilesorcery.sdk.html5"
+            properties="hasActiveSessions"
+            type="java.lang.Object"/>
+         <propertyTester
+            class="com.mobilesorcery.sdk.html5.ui.IsJSODDLaunchTester"
+            id="com.mobilesorcery.sdk.html5.isJsoddLaunch"
+            namespace="com.mobilesorcery.sdk.html5"
+            properties="isJsoddLaunch"
+            type="java.lang.Object"/>
+      </extension>
+</plugin>

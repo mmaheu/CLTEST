@@ -1,0 +1,104 @@
+* { margin: 0; padding: 0; }
+
+body {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background: #151515 url('../images/background.png') center top no-repeat;
+	margin:0;
+	}
+
+#wrapper {
+	width:800px;
+	margin: 0 auto;
+	}
+
+.content {
+	background: url('../images/welcome_text.png') 48px 40px no-repeat; ;
+	padding: 160px 44px 0 44px;
+	}
+
+.left-content {
+	float: left;
+	width: 450px;
+	}
+.right-content {
+	float: right;
+	width: 150px;
+	}
+
+.text {
+	font-size: 14px;
+	color: #fff;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+
+.left {	float:left; }
+.right { float:right; }
+
+.link {
+	float:left;
+	width: 150px;
+	text-align:center;
+	}
+	
+.link a { 
+	display: block;
+	color: #00ddff;
+	margin-top: 5px;
+	text-decoration:none;
+	line-height: 16px;
+	}
+	
+.link a span {
+	display:block;
+	width: 130px;
+	margin-left: auto;
+	margin-right: auto;
+	} 
+	
+.link a.button {
+	padding-top: 145px;
+	margin: 0;
+	}
+	
+.link a:hover { 
+	color:#f90;
+	}
+
+.link a.button#book { background: url('../images/btn_book.png') center top no-repeat; }
+.link a.button#book:hover { background: url('../images/btn_book_hover.png') center top no-repeat; }
+
+.link a.button#gear { background: url('../images/btn_gear.png') center top no-repeat; }
+.link a.button#gear:hover { background: url('../images/btn_gear_hover.png') center top no-repeat; }
+
+.link a.button#lamp { background: url('../images/btn_lamp.png') center top no-repeat; }
+.link a.button#lamp:hover { background: url('../images/btn_lamp_hover.png') center top no-repeat; }
+
+.link a.button#arrow { background: url('../images/btn_arrow.png') center top no-repeat; }
+.link a.button#arrow:hover { background: url('../images/btn_arrow_hover.png') center top no-repeat; }
+
+#bottom-panel {
+	position:absolute;
+	height: 40px;
+	width: 100%;
+	bottom: 0px;
+	background: url('../images/background_panel.png') top left repeat-x;
+	}
+
+#bottom-panel form {
+	margin: 14px 0 0 15px;
+	}
+
+#bottom-panel form input{
+	margin: 1px 8px 0 0;
+	padding:0;
+	display:block;
+	float:left;
+	}
+#bottom-panel form label{
+	padding:0;
+	display:block;
+	color: #666;
+	float:left;
+	}

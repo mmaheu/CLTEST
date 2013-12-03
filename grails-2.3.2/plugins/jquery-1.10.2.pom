@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.grails.plugins</groupId>
+  <artifactId>jquery</artifactId>
+  <packaging>zip</packaging>
+  <version>1.10.2</version>
+  <name>JQuery for Grails</name>
+  <description>Provides integration for the JQuery library with Grails JavascriptProvider</description>
+  <url>http://grails.org/plugin/jquery</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>Grails Plugin Collective</name>
+    <url>http://github.com/gpc</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>Sergey Nebolsin</name>
+      <email>nebolsin@gmail.com</email>
+    </developer>
+    <developer>
+      <name>Craig Jones</name>
+      <email>craigjones@maximsc.com</email>
+    </developer>
+    <developer>
+      <name>Marc Palmer</name>
+      <email>marc@grailsrocks.com</email>
+    </developer>
+    <developer>
+      <name>Finn Herpich</name>
+      <email>finn.herpich@marfinn-software.de</email>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.grails.org/browse/GPJQUERY</url>
+  </issueManagement>
+  <scm>
+    <url>https://github.com/gpc/grails-jquery</url>
+  </scm>
+  <dependencies />
+</project>

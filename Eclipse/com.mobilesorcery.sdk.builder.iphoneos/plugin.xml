@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.mobilesorcery.core.packagers">
+      <packager
+            implementation="com.mobilesorcery.sdk.builder.iphoneos.IPhoneOSPackager"
+            pattern="^profiles[/|\\]runtimes[/|\\]iphoneos.*"
+            id="com.mobilesorcery.sdk.build.ios.packager"
+            platform="iOS">
+      </packager>
+   </extension>
+         <extension
+            point="com.mobilesorcery.core.launcher">
+         <launcher
+               id="com.mobilesorcery.sdk.builder.iphoneos.launcher"
+               implementation="com.mobilesorcery.sdk.builder.iphoneos.launch.IPhoneEmulatorLauncher">
+         </launcher>
+      </extension>
+             <extension
+             point="com.mobilesorcery.core.propertyinitializers">
+          <initializer
+                class="com.mobilesorcery.sdk.builder.iphoneos.PropertyInitializer"
+                context="com.mobilesorcery.sdk.mosync.project.context"
+                id="com.mobilesorcery.sdk.builder.iphoneos.initializer"
+                prefix="iphone">
+          </initializer>
+       </extension>
+       
+                 <extension
+             point="org.eclipse.ui.propertyPages">
+           <page
+                category="com.mobilesorcery.sdk.ui.properties.project"
+                class="com.mobilesorcery.sdk.builder.iphoneos.ui.properties.IPhoneOSPropertyPage"
+                id="com.mobilesorcery.sdk.builder.iphoneos"
+                objectClass="org.eclipse.core.resources.IProject"
+                name="IPhone OS">
+                                <enabledWhen>
+                                   <test
+                                         forcePluginActivation="true"
+                                         property="com.mobilesorcery.sdk.testers.hasMoreNature">
+                                   </test>
+                                </enabledWhen>                
+          </page>         
+          <page
+                category="com.mobilesorcery.sdk.builder.iphoneos"
+                class="com.mobilesorcery.sdk.builder.iphoneos.ui.properties.IPhoneOSSigningPropertyPage"
+                id="com.mobilesorcery.sdk.builder.iphoneos.signing"
+                objectClass="org.eclipse.core.resources.IProject"
+                name="IPhone Signing">
+                                <enabledWhen>
+                                   <test
+                                         forcePluginActivation="true"
+                                         property="com.mobilesorcery.sdk.testers.hasMoreNature">
+                                   </test>
+                                </enabledWhen>                
+          </page> 
+          <page
+                category="com.mobilesorcery.sdk.builder.iphoneos"
+                class="com.mobilesorcery.sdk.builder.iphoneos.ui.properties.IPhoneOSSSDKPropertyPage"
+                id="com.mobilesorcery.sdk.builder.iphoneos.sdks"
+                objectClass="org.eclipse.core.resources.IProject"
+                name="XCode SDKs">
+                                <enabledWhen>
+                                   <test
+                                         forcePluginActivation="true"
+                                         property="com.mobilesorcery.sdk.testers.hasMoreNature">
+                                   </test>
+                                </enabledWhen>                
+          </page>  
+                   <page
+                category="com.mobilesorcery.sdk.builder.iphoneos"
+                class="com.mobilesorcery.sdk.builder.iphoneos.ui.properties.IPhoneOSProvisioningPropertyPage"
+                id="com.mobilesorcery.sdk.builder.iphoneos.provisioning"
+                objectClass="org.eclipse.core.resources.IProject"
+                name="Provisioning">
+                                <enabledWhen>
+                                   <test
+                                         forcePluginActivation="true"
+                                         property="com.mobilesorcery.sdk.testers.hasMoreNature">
+                                   </test>
+                                </enabledWhen>                
+          </page>          
+       </extension>
+                 <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="com.mobilesorcery.sdk.preferences.main"
+            class="com.mobilesorcery.sdk.builder.iphoneos.ui.preferences.IPhoneOSSigningPreferencePage"
+            id="com.mobilesorcery.sdk.builder.iphoneos.preferences"
+            name="IPhone Signing">
+      </page>
+      <page
+            category="com.mobilesorcery.sdk.preferences.main"
+            class="com.mobilesorcery.sdk.builder.iphoneos.ui.preferences.XCodePreferencePage"
+            id="com.mobilesorcery.sdk.builder.iphoneos.preferences.xcode"
+            name="Xcode">
+      </page>
+      </extension>
+            <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.mobilesorcery.sdk.builder.iphoneos.PropertyInitializer">
+      </initializer>
+   </extension>
+       
+</plugin>

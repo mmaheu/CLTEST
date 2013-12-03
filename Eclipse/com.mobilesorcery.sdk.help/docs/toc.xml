@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="MoSync SDK">
+	<topic label="Online user guides" href="http://www.mosync.com/content/documentation"></topic>
+	<topic label="Online tutorials" href="http://www.mosync.com/content/code-examples"></topic>
+	<topic label="Developer center" href="http://www.mosync.com/developer"></topic>
+	<topic label="Screencasts" href="http://www.mosync.com/screencasts"></topic>
+</toc>

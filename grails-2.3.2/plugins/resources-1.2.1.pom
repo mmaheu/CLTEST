@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.grails.plugins</groupId>
+  <artifactId>resources</artifactId>
+  <packaging>zip</packaging>
+  <version>1.2.1</version>
+  <name>Resources</name>
+  <description>HTML resource management enhancements to replace g.resource etc.</description>
+  <url>http://grails-plugins.github.com/grails-resources</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>Grails Community</name>
+    <url>http://grails.org/</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>Marc Palmer</name>
+      <email>marc@grailsrocks.com</email>
+    </developer>
+    <developer>
+      <name>Luke Daley</name>
+      <email>ld@ldaley.com</email>
+    </developer>
+    <developer>
+      <name>Peter N. Steinmetz</name>
+      <email>ndoc3@steinmetz.org</email>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.grails.org/browse/GPRESOURCES</url>
+  </issueManagement>
+  <scm>
+    <url>https://github.com/grails-plugins/grails-resources</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.grails.plugins</groupId>
+      <artifactId>webxml</artifactId>
+      <version>1.4.1</version>
+      <type>zip</type>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xmlParserAPIs</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xerces</groupId>
+          <artifactId>xmlParserAPIs</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+</project>

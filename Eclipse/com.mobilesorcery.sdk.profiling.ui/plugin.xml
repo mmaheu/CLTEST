@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.mobilesorcery.sdk.profiling.ui.views.ProfilingEditor"
+            default="true"
+            extensions="prof"
+            icon="icons/profiling.png"
+            id="com.mobilesorcery.sdk.profiling.ui.profiling"
+            name="MoSync Application Profiling">
+      </editor>
+   </extension>
+      <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      
+      <launchConfigurationTypeImage
+            configTypeID="com.mobilesorcery.profiling.launchconfigurationtype"
+            icon="icons/profiling.png"
+            id="com.mobilesorcery.launchconfigurationtype.profiling.image"/>
+   </extension>
+   
+  <extension point="org.eclipse.ui.activities">
+    <activity id="com.mobilesorcery.profiling"
+      description="MoSync Profiling"
+   name="MoSync Profiling" />
+  
+     <!-- <categoryActivityBinding activityId="com.mobilesorcery.profiling"
+   categoryId="com.mobilesorcery.activities.experimental" />
+   
+   <activityPatternBinding activityId="com.mobilesorcery.profiling"
+   pattern="com\.mobilesorcery\.sdk\.profiling\.ui/.*" />
+   
+   
+   <activityPatternBinding activityId="com.mobilesorcery.profiling"
+   pattern="com\.mobilesorcery\.sdk\.profiling/.*" /> -->
+   
+  </extension> 
+</plugin>
